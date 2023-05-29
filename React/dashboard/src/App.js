@@ -20,6 +20,16 @@ function App() {
       </header>
     </div>
   );
+  function auth(){
+    
+  }
+  function login(){
+    return (
+      <div>
+        <h1>login</h1>
+      </div>
+    );
+  }
 }
 
 export default App;
