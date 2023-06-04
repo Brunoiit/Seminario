@@ -12,6 +12,7 @@
     <title>Energia Sana | </title>
 
     <!-- Bootstrap -->
+    
     <link href="{% static '/FrWork/admin_lte/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{% static '/FrWork/admin_lte/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
@@ -29,6 +30,8 @@
 
     <!-- Custom Theme Style -->
     <link href="{% static '/FrWork/admin_lte/build/css/custom.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <body class="nav-md">
@@ -67,6 +70,7 @@
                     <ul class="nav child_menu">
                       <li><a href="#">Novedades</a></li>
                       <li><a href="#">Caracteristicas</a></li>
+                      <li><a href="#">Agregar Novedad</a></li>
                     </ul>
                   </li>                  
                 </ul>
@@ -75,21 +79,8 @@
                 <h3>Administrar</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i> Reportar error</span></a>                    
-                  </li>                  
-                  <li><a><i class="fa fa-users"></i> Gestion de usuarios<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#"><i class="fa fa-search"></i>Ver Usuarios</a>
-                        <li><a>Gestionar Usuario<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li><a href="#">Crear Usuario</a>
-                            </li>
-                            <li><a href="#">Editar Usuario</a>
-                            </li>
-                            <li><a href="#">Eliminar Usuario</a>
-                            </li>
-                          </ul>
-                        </li>
-                    </ul>
+                  </li>       
+                  <li><a href="ver"><i class="fa fa-users"></i> Gestion de usuarios</span></a>                    
                   </li>                  
                 </ul>
               </div>
