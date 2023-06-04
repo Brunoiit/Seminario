@@ -15,37 +15,59 @@
 <link href="{% static '/FrWork/admin_lte/vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
 
 <link href="{% static '/FrWork/admin_lte/build/css/login.css' %}" rel="stylesheet">
-<form method="Post">
+<form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
     <section class="vh-80 gradient-custom">
         <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-8 col-md-5 col-lg-5 col-xl-5">
-            <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
-    
-                <div class="mb-md-1 mt-md-0 pb-0">
-                    <img src="{% static '/FrWork/admin_lte/build/images/logologin.png' %}">
-                    <h2 class="fw-bold mb-2 text-uppercase">Inicia Sesion</h2>
-                    <p class="text-white-50 mb-2">Por favor pon tus usuario y tu contraseña!</p>
-    
-                    <div class="form-outline form-white mb-2">
-                    <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                    <label class="form-label" for="typeEmailX">Correo Eléctronico</label>
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-8 col-md-5 col-lg-5 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <div class="mb-md-1 mt-md-0 pb-0">
+                                <img src="{% static '/FrWork/admin_lte/build/images/logologin.png' %}">
+                                <h2 class="fw-bold mb-2 text-uppercase">Inicia Sesion</h2>
+                                {% if error_message %}
+                                    <div id="error-alert" class="alert alert-danger" role="alert" style="background-color: red; color: white; opacity: 0; transform: translateY(-20px);">
+                                        {{ error_message }}
+                                    </div>
+                                {% endif %}
+                                <p class="text-white-50 mb-2">Por favor ingresa tu correo electrónico y contraseña.</p>    
+                                <div class="form-outline form-white mb-2">
+                                    <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                                    <label class="form-label" for="id_email">Correo Electrónico</label>
+                                </div>    
+                                <div class="form-outline form-white mb-2">
+                                    <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                                    <label class="form-label" for="id_password">Contraseña</label>
+                                </div>    
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Iniciar Sesión</button>
+                            </div>  
+                        </div>
                     </div>
-    
-                    <div class="form-outline form-white mb-2">
-                    <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                    <label class="form-label" for="typePasswordX">Contraseña</label>
-                    </div>
-    
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Iniciar Sesion</button>
-    
-                </div>  
                 </div>
             </div>
-            </div>
-        </div>
         </div>
     </section>
 </form>
+<script>
+    // Mostrar la alerta con efecto de fade y desplazamiento
+    var errorAlert = document.getElementById('error-alert');
+    if (errorAlert) {
+        errorAlert.style.transition = 'opacity 0.5s, transform 0.5s';
+        errorAlert.style.opacity = '1';
+        errorAlert.style.transform = 'translateY(0)';
+    }
+
+    // Ocultar la alerta después de 15 segundos con efecto de fade
+    setTimeout(function() {
+        if (errorAlert) {
+            errorAlert.style.opacity = '0';
+            errorAlert.style.transform = 'translateY(-20px)';
+            setTimeout(function() {
+                errorAlert.style.display = 'none';
+            }, 500);
+        }
+    }, 8000);
+</script>
+
+
