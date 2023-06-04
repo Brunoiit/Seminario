@@ -3,5 +3,87 @@
 {% block content %}
     <div class="right_col" role="main">
         <h1>Eliminar Usuario</h1>
+        <h2>¿seguro que desea eliminar este usuario?</h2>
+        <form action="{% url 'eliminar' usuario.id_usr %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group row">
+                <input id="id" name="id" type="hidden" aria-describedby="idHelpBlock" required="required" value="{{ usuario.id_usr }}"  class="form-control">                  
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-2 col-form-label">Nombre</label> 
+                <div class="col-10">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-address-card"></i>
+                            </div>
+                        </div> 
+                        <input id="name" disabled name="name" value="{{ usuario.nombre_usr }}" placeholder="Ingrese el nombre del usuario" type="text" aria-describedby="nameHelpBlock" required="required" class="form-control">
+                    </div> 
+                    <span id="nameHelpBlock" class="form-text text-muted">Nombre de usuario a borrar</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="lastname" class="col-2 col-form-label">Apellido</label> 
+                <div class="col-10">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-address-card"></i>
+                            </div>
+                        </div> 
+                        <input id="lastname" disabled name="lastname" value="{{ usuario.apellido_usr }}" placeholder="Ingrese el apellido del usuario" type="text" aria-describedby="lastnameHelpBlock" required="required" class="form-control">
+                    </div> 
+                    <span id="lastnameHelpBlock" class="form-text text-muted">Apellido del usuario a borrar</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-2 col-form-label">Correo</label> 
+                <div class="col-10">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-at"></i>
+                            </div>
+                        </div> 
+                        <input id="email" disabled name="email" value="{{ usuario.correo_usr }}" placeholder="Ingrese el correo del usuario" type="text" aria-describedby="emailHelpBlock" required="required" class="form-control">
+                    </div> 
+                    <span id="emailHelpBlock" class="form-text text-muted">Correo del usuario a borrar</span>
+                </div>
+            </div>          
+            <div class="form-group row">
+                <label for="phone" class="col-2 col-form-label">Teléfono</label> 
+                <div class="col-10">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                        </div> 
+                        <input id="phone" disabled name="phone" value="{{ usuario.telefono_usr }}" placeholder="ingrese el teléfono del usuario" type="text" aria-describedby="phoneHelpBlock" class="form-control">
+                    </div> 
+                    <span id="phoneHelpBlock" class="form-text text-muted">Número de teléfono a borrar</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" disabled class="col-2 col-form-label">Contraseña</label> 
+                <div class="col-10">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-500px"></i>
+                            </div>
+                        </div> 
+                        <input id="password" disabled name="password" placeholder="Esta contraseña se borrarà" type="password" aria-describedby="passwordHelpBlock" class="form-control">
+                    </div> 
+                <span id="passwordHelpBlock" class="form-text text-muted">Contraseña a borrar</span>
+              </div>
+            </div>                      
+            <div class="form-group row">
+              <div class="offset-2 col-10">
+                <button name="submit" type="submit" class="btn btn-primary">Eliminar</button>
+              </div>
+            </div>
+        </form>
     </div>
 {% endblock content %}
