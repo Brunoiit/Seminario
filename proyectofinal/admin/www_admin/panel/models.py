@@ -8,6 +8,7 @@ class Usuarios(models.Model):
     correo_usr = models.CharField(max_length=50, null=False)
     telefono_usr = models.IntegerField(null=True)
     rol_usr = models.IntegerField(null=False)
+    contrasena_usr = models.CharField(max_length=12, null=False)
     fec_creacion_usr = models.DateTimeField(auto_now_add=True, null=True)
     class meta:
         db_table = 'Usuarios'
