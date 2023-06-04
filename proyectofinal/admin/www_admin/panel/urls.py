@@ -10,6 +10,6 @@ urlpatterns = [
     path('ver', views.ver, name='ver'),
     path('agregar', views.agregar, name='agregar'),
     path('modificar/<int:id_usr>/', views.modificar, name='modificar'),
-    path('eliminar/<int:id_usr>/', views.eliminar, name='eliminar')
+    # path('eliminar/<int:id_usr>/', views.eliminar, name='eliminar')
 ]
 

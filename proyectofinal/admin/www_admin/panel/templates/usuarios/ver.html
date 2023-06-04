@@ -15,7 +15,7 @@
                   <th scope="col">Rol</th>
                   <th scope="col">Fecha Registro</th>
                   <th scope="col">Editar</th>
-                  <th scope="col">Eliminar</th>
+                  {% comment %} <th scope="col">Eliminar</th> {% endcomment %}
                 </tr>
               </thead>
               <tbody>
@@ -38,10 +38,10 @@
                       <td>{{ u.fec_creacion_usr }}</td>
                       {% if u.rol_usr == 1 %}
                         <td><a>No editable</a></td>
-                        <td><a>No se puede eliminar</a></td>
+                        {% comment %} <td><a>No se puede eliminar</a></td> {% endcomment %}
                       {% else %}
                         <td><a href="modificar/{{ u.id_usr }}"><i class="fa fa-user"></i></a></td>
-                        <td><a href="eliminar/{{ u.id_usr }}"><i class="fa fa-trash"></i></a></td>
+                        {% comment %} <td><a href="eliminar/{{ u.id_usr }}"><i class="fa fa-trash"></i></a></td> {% endcomment %}
                       {% endif %}
                       
                   </tr>

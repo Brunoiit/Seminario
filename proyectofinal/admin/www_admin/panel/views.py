@@ -21,7 +21,11 @@ def agregar(request):
                 usuario.contrasena_usr = request.POST.get("password")
                 usuario.rol_usr = request.POST.get("rol")
                 usuario.save()
-                user = User.objects.create_user(username=request.POST.get("email"), email=request.POST.get("email"), password=request.POST.get("password"))
+                primeras_letras_apellido = request.POST.get("lastname")[:2]
+
+                # Crear el nombre de usuario combinando el nombre y las primeras letras del apellido
+                nombre_usuario = f"{request.POST.get('name')}{primeras_letras_apellido}"
+                user = User.objects.create_user(username=nombre_usuario, firs_name= request.POST.get("name"), last_name = request.POST.get("lastname"),email=request.POST.get("email"), password=request.POST.get("password"))
                 return redirect('ver')
             return HttpResponse("Usuario autenticado")
         else:
@@ -41,26 +45,30 @@ def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(request, username=email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('ver')
-        else:
-            return render(request, 'login.html', {'error_message': 'Credenciales inválidas'})
+        try:
+            user = User.objects.get(email=email)
+            if user.check_password(password):
+                login(request, user)
+                return redirect('ver')
+        except User.DoesNotExist:
+            pass
+        return render(request, 'login.html', {'error_message': 'Credenciales inválidas'})
     else:
         return render(request, 'login.html')
 
-@login_required
-def eliminar(request, id_usr):
-    usuario = get_object_or_404(Usuarios, id_usr=id_usr)
-    
-    if request.method == "POST":
-        usuario.delete()
-        return redirect('ver')
-    
-    return render(request, "usuarios/eliminar.html", {'usuario': usuario})
+# @login_required
+# def eliminar(request, id_usr):
+#     usuario = get_object_or_404(Usuarios, id_usr=id_usr)    
+#     if request.method == "POST":
+#         # Desactivar el usuario en la tabla de usuarios de Django
+#         django_user = User.objects.get(email=usuario.correo_usr)
+#         django_user.is_active = False
+#         django_user.save()        
+#         # Eliminar el usuario de la tabla Usuarios
+#         usuario.delete()        
+#         return redirect('ver')    
+#     return render(request, "usuarios/eliminar.html", {'usuario': usuario})
 
-@login_required
 def ver(request):
     return render(request, "usuarios/ver.html", {'usuarios' : Usuarios.objects.all})
 
