@@ -39,20 +39,31 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/" class="site_title"><span><img src="images/logo.png"></span><span>Energia Sana!</span></a>
+              <a href="/" class="site_title"><span><img src="{% static '/FrWork/admin_lte/build/images/logolite.png' %}"></span><span>Energia Sana!</span></a>
             </div>
 
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Bienvenido,</span>
-                <h2>Francisco Cr</h2>
-              </div>
+            {% if request.user.is_authenticated %}
+              <div class="profile clearfix">
+                <div class="profile_pic">
+                  <img src="{% static '/FrWork/admin_lte/build/images/logolite.png' %}" alt="..." class="img-circle profile_img">
+                </div>
+              
+                <div class="profile_info">
+                  <span>Bienvenido,</span>
+                  <h2>Francisco Cr</h2>
+                </div>
+              {% else %}
+                <div class="profile clearfix">
+                  <div class="profile_pic">
+                    <img src="{% static '/FrWork/admin_lte/build/images/logolite.png' %}" alt="..." class="img-circle profile_img">
+                  </div>
+                <div class="profile_info">
+                  <span>Bienvenido</span>
+                </div>
+              {% endif %}
             </div>
             <!-- /menu profile quick info -->
 
@@ -107,30 +118,47 @@
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-              <nav class="nav navbar-nav">
-              <ul class=" navbar-right">
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Francisco Cr
-                  </a>
-                  <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                      <a class="dropdown-item"  href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                  <a class="dropdown-item"  href="javascript:;">Help</a>
-                    <a class="dropdown-item"  href="{% url cerrarSesion %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                  </div>                
-              </ul>
-            </nav>
+        {% if request.user.is_authenticated %}
+          <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                <ul class=" navbar-right">
+                  <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                      <img src="images/logo.png" alt="">Francisco Cr
+                    </a>
+                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                        <a class="dropdown-item"  href="javascript:;">
+                          <span class="badge bg-red pull-right">50%</span>
+                          <span>Settings</span>
+                        </a>
+                    <a class="dropdown-item"  href="javascript:;">Help</a>
+                      <a class="dropdown-item"  href="{% url cerrarSesion %}"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesion</a>
+                    </div>                
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
+        {% else %}
+          <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                <ul class=" navbar-right">
+                  <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <a class="dropdown-item"  href="{% url 'login' %}"><i class="fa fa-sign-out pull-left"></i> Inicia Sesion</a>
+                  </li>               
+                </ul>
+              </nav>
+            </div>
+          </div>
+        {% endif %}
         <!-- /top navigation -->
 
 
