@@ -6,5 +6,5 @@ from . import views
 
 #definir urlpatterns
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('', views.index, name='index'),
 ]
