@@ -19,17 +19,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Sit</td>
-                    <td>Amet</td>
-                    <td>Sit</td>
-                    <td>Amet</td>
-                    <td>Sit</td>
-                    <td>Sit</td>
-                    <td><i class="fa fa-user"></i></td>
-                    <td><i class="fa fa-trash"></i></td>
-                </tr>
+                {% for u in usuarios %}
+                    <tr>
+                        <th scope="row">{{u.id_usr}}</th>
+                        <td>{{u.nombre_usr}}</td>
+                        <td>{{u.apellido_usr}}</td>
+                        <td>{{u.correo_usr}}</td>
+                        <td>{{u.telefono_usr}}</td>
+                        <td>{{u.rol_usr}}</td>
+                        <td>{{u.fec_creacion_usr}}</td>
+                        <td><a href="modificar"><i class="fa fa-user"></i></a></td>
+                        <td><a href="eliminar"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
               </tbody>
           
               <caption>

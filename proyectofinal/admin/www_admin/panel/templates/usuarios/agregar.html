@@ -3,79 +3,95 @@
 {% block content %}    
     <div class="right_col" role="main">
         <h1>Agregar Usuario</h1>
-        <form>
-            <div class="form-group row">
-              <label for="name" class="col-2 col-form-label">Nombre</label> 
-              <div class="col-10">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-address-card"></i>
-                    </div>
-                  </div> 
-                  <input id="name" name="name" placeholder="Ingrese el nombre del usuario" type="text" aria-describedby="nameHelpBlock" required="required" class="form-control">
+        <form action="agregar" method="POST">
+          {% csrf_token %}
+          <div class="form-group row">
+            <label for="name" class="col-2 col-form-label">Nombre</label> 
+            <div class="col-10">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fa fa-address-card"></i>
+                  </div>
                 </div> 
-                <span id="nameHelpBlock" class="form-text text-muted">Ingrese su nombre</span>
-              </div>
+                <input id="name" name="name" placeholder="Ingrese el nombre del usuario" type="text" aria-describedby="nameHelpBlock" required="required" class="form-control">
+              </div> 
+              <span id="nameHelpBlock" class="form-text text-muted">Ingrese su nombre</span>
             </div>
-            <div class="form-group row">
-              <label for="lastname" class="col-2 col-form-label">Apellido</label> 
-              <div class="col-10">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-address-card"></i>
-                    </div>
-                  </div> 
-                  <input id="lastname" name="lastname" placeholder="Ingrese el apellido del usuario" type="text" aria-describedby="lastnameHelpBlock" required="required" class="form-control">
+          </div>
+          <div class="form-group row">
+            <label for="lastname" class="col-2 col-form-label">Apellido</label> 
+            <div class="col-10">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fa fa-address-card"></i>
+                  </div>
                 </div> 
-                <span id="lastnameHelpBlock" class="form-text text-muted">Ingrese el apellido del usuario</span>
-              </div>
+                <input id="lastname" name="lastname" placeholder="Ingrese el apellido del usuario" type="text" aria-describedby="lastnameHelpBlock" required="required" class="form-control">
+              </div> 
+              <span id="lastnameHelpBlock" class="form-text text-muted">Ingrese el apellido del usuario</span>
             </div>
-            <div class="form-group row">
-              <label for="email" class="col-2 col-form-label">Correo</label> 
-              <div class="col-10">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-at"></i>
-                    </div>
-                  </div> 
-                  <input id="email" name="email" placeholder="Ingrese el correo del usuario" type="text" aria-describedby="emailHelpBlock" required="required" class="form-control">
+          </div>
+          <div class="form-group row">
+            <label for="email" class="col-2 col-form-label">Correo</label> 
+            <div class="col-10">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fa fa-at"></i>
+                  </div>
                 </div> 
-                <span id="emailHelpBlock" class="form-text text-muted">Ingrese el correo del usuario</span>
-              </div>
+                <input id="email" name="email" placeholder="Ingrese el correo del usuario" type="text" aria-describedby="emailHelpBlock" required="required" class="form-control">
+              </div> 
+              <span id="emailHelpBlock" class="form-text text-muted">Ingrese el correo del usuario</span>
             </div>
-            <div class="form-group row">
-              <label for="phone" class="col-2 col-form-label">Teléfono</label> 
-              <div class="col-10">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-phone"></i>
-                    </div>
-                  </div> 
-                  <input id="phone" name="phone" placeholder="ingrese el teléfono del usuario" type="text" aria-describedby="phoneHelpBlock" class="form-control">
+          </div>          
+          <div class="form-group row">
+            <label for="phone" class="col-2 col-form-label">Teléfono</label> 
+            <div class="col-10">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fa fa-phone"></i>
+                  </div>
                 </div> 
-                <span id="phoneHelpBlock" class="form-text text-muted">Ingrese el número de teléfono</span>
-              </div>
+                <input id="phone" name="phone" placeholder="ingrese el teléfono del usuario" type="text" aria-describedby="phoneHelpBlock" class="form-control">
+              </div> 
+              <span id="phoneHelpBlock" class="form-text text-muted">Ingrese el número de teléfono</span>
             </div>
-            <div class="form-group row">
-              <label class="col-2 col-form-label" for="rol">Rol</label> 
-              <div class="col-10">
-                <select id="rol" name="rol" aria-describedby="rolHelpBlock" required="required" class="form-control">
-                  <option value="3">Usuario</option>
-                  <option value="2">Editor</option>
-                  <option value="1">Administrador</option>
-                </select> 
-                <span id="rolHelpBlock" class="form-text text-muted">Seleccione el rol del usuario</span>
-              </div>
-            </div> 
-            <div class="form-group row">
-              <div class="offset-2 col-10">
-                <button name="submit" type="submit" class="btn btn-primary">Agregar</button>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label for="password" class="col-2 col-form-label">Contraseña</label> 
+            <div class="col-10">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fa fa-500px"></i>
+                  </div>
+                </div> 
+                <input id="password" name="password" placeholder="Ingrese la contraseña del usuario" type="password" aria-describedby="passwordHelpBlock" class="form-control">
+              </div> 
+              <span id="passwordHelpBlock" class="form-text text-muted">Ingrese el nombre del usuario</span>
             </div>
+          </div> 
+          <div class="form-group row">
+            <label class="col-2 col-form-label" for="rol">Rol</label> 
+            <div class="col-10">
+              <select id="rol" name="rol" aria-describedby="rolHelpBlock" required="required" class="form-control">
+                <option value="3">Usuario</option>
+                <option value="2">Editor</option>
+                <option value="1">Administrador</option>
+              </select> 
+              <span id="rolHelpBlock" class="form-text text-muted">Seleccione el rol del usuario</span>
+            </div>
+          </div> 
+        
+          <div class="form-group row">
+            <div class="offset-2 col-10">
+              <button name="submit" type="submit" class="btn btn-primary">Agregar</button>
+            </div>
+          </div>
         </form>
     </div>
 
