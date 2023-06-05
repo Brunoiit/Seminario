@@ -1,0 +1,34 @@
+{% extends '../index_master.html' %}
+
+{% block content %}  
+    <div class="right_col" role="main">
+        <h1>Publicar</h1>
+        <form action="publicar" method="POST">
+            {% csrf_token %}
+            <div class="form-group row">
+              <label for="tittle" class="col-2 col-form-label">Titulo</label> 
+              <div class="col-10">
+                <div class="input-group">
+                  <input id="tittle" name="tittle" placeholder="Titulo de la publicacion" type="text" required="required" class="form-control"> 
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fa fa-align-justify"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="cuerpo" class="col-2 col-form-label">Cuerpo de la publicación</label> 
+              <div class="col-10">
+                <textarea id="cuerpo" name="cuerpo" cols="40" rows="8" required="required" class="form-control"></textarea>
+              </div>
+            </div> 
+            <div class="form-group row">
+              <div class="offset-2 col-10">
+                <button name="submit" type="submit" class="btn btn-primary">Publicar</button>
+              </div>
+            </div>
+          </form>        
+    </div>
+{% endblock content %}

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.urls import path
 from django.shortcuts import render, redirect
-from .models import Usuarios
+from .models import Usuarios, Public, PQRS
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User
@@ -35,7 +35,16 @@ def agregar(request):
         return HttpResponse("Usuario no autenticado")
     
 def index(request):
-    return render(request, "index.html")
+    publicaciones = Public.objects.order_by('-fec_creacion_pblc')
+    datos_publicaciones = []
+    for publicacion in publicaciones:
+        usuario = Usuarios.objects.get(id_usr=publicacion.id_usr_id)  # Acceder a id_usr_id en lugar de id_usr
+        datos_publicaciones.append({
+            'publicacion': publicacion,
+            'usuario': usuario,
+        })
+    return render(request, 'index.html', {'datos_publicaciones': datos_publicaciones})
+
 
 def cerrarSesion(request):
     logout(request)
@@ -68,7 +77,7 @@ def login_view(request):
 #         usuario.delete()        
 #         return redirect('ver')    
 #     return render(request, "usuarios/eliminar.html", {'usuario': usuario})
-
+@login_required
 def ver(request):
     return render(request, "usuarios/ver.html", {'usuarios' : Usuarios.objects.all})
 
@@ -93,5 +102,23 @@ def modificar(request, id_usr):
     else:
         # En caso de que el usuario no esté autenticado
         return HttpResponse("Usuario no autenticado")
+
+@login_required
+def publicar(request):
+    if request.method == "POST":
+        if request.POST.get("tittle") and request.POST.get("cuerpo"):
+            publicacion = Public()
+            usuario = Usuarios.objects.get(id_usr=request.user.id)
+            publicacion.id_usr_id = usuario.id_usr
+            publicacion.titulo_pblc = request.POST.get("tittle")
+            publicacion.cuerpo_pblc = request.POST.get("cuerpo")
+            publicacion.save()
+            return redirect('/')
+    return render(request, "publicaciones/publicar.html")
+
+
+
+
+
 
 

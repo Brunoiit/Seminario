@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('ver', views.ver, name='ver'),
     path('agregar', views.agregar, name='agregar'),
+    path('publicar', views.publicar, name='publicar'),
     path('modificar/<int:id_usr>/', views.modificar, name='modificar'),
     # path('eliminar/<int:id_usr>/', views.eliminar, name='eliminar')
 ]

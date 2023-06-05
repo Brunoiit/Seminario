@@ -2,10 +2,27 @@
 
 {% block content %}
 
-    <!-- page content -->
-        <div class="right_col" role="main">
-          <!-- top tiles -->
-          <h1>Hola</h1>
-        </div>
-        <!-- /page content -->
+  <!-- page content -->
+  <div class="right_col" role="main">
+    <!-- top tiles -->
+    <h1>Ultimas noticias</h1>
+    {% for datos in datos_publicaciones %}
+      <div class="card">
+          <div class="card-header">
+              <h2>{{ datos.publicacion.titulo_pblc }}</h2>
+          </div>
+          <div class="card-body">
+              <p>{{ datos.publicacion.cuerpo_pblc }}</p>
+              <!-- Otros campos de la publicación -->
+          </div>
+          <div class="card-footer text-muted">
+              Publicado por: {{ datos.usuario.nombre_usr }} el {{ datos.publicacion.fec_creacion_pblc }}
+          </div>
+      </div>
+    {% endfor %}
+
+
+
+  </div>
+  <!-- /page content -->
 {% endblock %}
