@@ -30,6 +30,7 @@
 
     <!-- Custom Theme Style -->
     <link href="{% static '/FrWork/admin_lte/build/css/custom.min.css' %}" rel="stylesheet">
+    <link href="{% static '/FrWork/admin_lte/build/css/public.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
@@ -78,9 +79,7 @@
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> Ultimos Datos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Novedades</a></li>
-                      <li><a href="#">Caracteristicas</a></li>
-                      <li><a href="publicar">Agregar Novedad</a></li>
+                      <li><a href="publicar">Agregar Publicaciòn</a></li>
                     </ul>
                   </li>                  
                 </ul>
@@ -131,12 +130,7 @@
                       <img src="{% static '/FrWork/admin_lte/build/images/logolite.png' %}" alt="">{{ request.user.username }}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Perfil</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
-                        </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
+                      <a class="dropdown-item"  href="javascript:;">Ayuda</a>
                       <a class="dropdown-item"  href="{% url 'cerrarSesion' %}"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesion</a>
                     </div>                
                 </ul>

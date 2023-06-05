@@ -2,9 +2,12 @@
 
 {% block content %}
     <div class="right_col" role="main">
-        {% if u.rol_usr == 1 %}
-        <h1>Listado de Usuarios</h1> <a class="btn btn-primary" href="agregar" role="button">Agregar Usuario</a>
-        {% endif %}        
+      {% if mostrar_boton %}
+        <h1>Listado de Usuarios</h1>
+        <a class="btn btn-primary" href="agregar" role="button">Agregar Usuario</a>
+      {% else %}
+        <h1>Listado de Usuarios</h1>
+      {% endif %}
         <div class="table-responsive">
             <table class="table table-primary border-warning">
               <thead>

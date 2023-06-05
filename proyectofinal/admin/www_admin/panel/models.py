@@ -10,7 +10,7 @@ class Usuarios(models.Model):
     rol_usr = models.IntegerField(null=False)
     contrasena_usr = models.CharField(max_length=12, null=False)
     fec_creacion_usr = models.DateTimeField(auto_now_add=True, null=True)
-    class meta:
+    class Meta:
         db_table = 'Usuarios'
 
 class Public(models.Model):
@@ -19,7 +19,7 @@ class Public(models.Model):
     titulo_pblc = models.CharField(max_length=25, null=False)
     cuerpo_pblc = models.CharField(max_length=50, null=False)
     fec_creacion_pblc = models.DateTimeField(auto_now_add=True, null=True)
-    class meta:
+    class Meta:
         db_table = 'Publicaciones'
 
 class PQRS(models.Model):
@@ -27,5 +27,5 @@ class PQRS(models.Model):
     texto_pqrs = models.CharField(max_length=250, null=False)
     correo_pqrs = models.CharField(max_length=50, null=False)
     telefono_pqrs = models.IntegerField(null=True)
-    class meta:
+    class Meta:
         db_table = 'PQRS'

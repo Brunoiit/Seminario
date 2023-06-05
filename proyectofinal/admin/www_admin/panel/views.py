@@ -79,7 +79,13 @@ def login_view(request):
 #     return render(request, "usuarios/eliminar.html", {'usuario': usuario})
 @login_required
 def ver(request):
-    return render(request, "usuarios/ver.html", {'usuarios' : Usuarios.objects.all})
+    if request.user.is_authenticated and request.user.rol_usr == 1:
+        mostrar_boton = True
+    else:
+        mostrar_boton = False
+
+    usuarios = Usuarios.objects.all()
+    return render(request, "usuarios/ver.html", {'usuarios': usuarios, 'mostrar_boton': mostrar_boton})
 
 @login_required
 def modificar(request, id_usr):
