@@ -11,6 +11,8 @@ urlpatterns = [
     path('agregar', views.agregar, name='agregar'),
     path('publicar', views.publicar, name='publicar'),
     path('modificar/<int:id_usr>/', views.modificar, name='modificar'),
+    path('publicacion/<int:id_pblc>/', views.detalle_publicacion, name='detalle_publicacion'),
+    path('guardar_comentario/', views.guardar_comentario, name='guardar_comentario'),
     # path('eliminar/<int:id_usr>/', views.eliminar, name='eliminar')
 ]
 

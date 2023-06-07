@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.urls import path
 from django.shortcuts import render, redirect
-from .models import Usuarios, Public, PQRS
+from .models import Usuarios, Public, PQRS, Comentario
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User
@@ -25,7 +25,7 @@ def agregar(request):
 
                 # Crear el nombre de usuario combinando el nombre y las primeras letras del apellido
                 nombre_usuario = f"{request.POST.get('name')}{primeras_letras_apellido}"
-                user = User.objects.create_user(username=nombre_usuario, firs_name= request.POST.get("name"), last_name = request.POST.get("lastname"),email=request.POST.get("email"), password=request.POST.get("password"))
+                user = User.objects.create_user(username=nombre_usuario, first_name= request.POST.get("name"), last_name = request.POST.get("lastname"),email=request.POST.get("email"), password=request.POST.get("password"))
                 return redirect('ver')
             return HttpResponse("Usuario autenticado")
         else:
@@ -77,15 +77,16 @@ def login_view(request):
 #         usuario.delete()        
 #         return redirect('ver')    
 #     return render(request, "usuarios/eliminar.html", {'usuario': usuario})
+
 @login_required
 def ver(request):
-    if request.user.is_authenticated and request.user.rol_usr == 1:
+    if request.user.is_authenticated and request.user.is_superuser:
         mostrar_boton = True
     else:
         mostrar_boton = False
-
     usuarios = Usuarios.objects.all()
     return render(request, "usuarios/ver.html", {'usuarios': usuarios, 'mostrar_boton': mostrar_boton})
+
 
 @login_required
 def modificar(request, id_usr):
@@ -122,9 +123,25 @@ def publicar(request):
             return redirect('/')
     return render(request, "publicaciones/publicar.html")
 
+def detalle_publicacion(request, id_pblc):
+    publicacion = get_object_or_404(Public, id_pblc=id_pblc)
+    comentarios = Comentario.objects.filter(publicacion=publicacion).order_by('-fecha_creacion')  # Obtener los comentarios de la publicación ordenados por fecha de creación descendente
+    context = {
+        'publicacion': publicacion,
+        'comentarios': comentarios,  # Agregar los comentarios al contexto
+    }
+    return render(request, "publicaciones/detalle_publicacion.html", context)
 
 
 
-
-
+@login_required
+def guardar_comentario(request):
+    if request.method == 'POST':
+        comentario_texto = request.POST.get('comentario')
+        publicacion_id = request.POST.get('publicacion_id')
+        usuario = get_object_or_404(Usuarios, id_usr=request.user.id)
+        publicacion = get_object_or_404(Public, id_pblc=publicacion_id)
+        comentario = Comentario(usuario=usuario, publicacion=publicacion, comentario=comentario_texto)
+        comentario.save()
+    return redirect(request.META['HTTP_REFERER'])
 
