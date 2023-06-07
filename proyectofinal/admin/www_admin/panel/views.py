@@ -80,13 +80,16 @@ def login_view(request):
 
 @login_required
 def ver(request):
-    if request.user.is_authenticated and request.user.is_superuser:
-        mostrar_boton = True
-    else:
+    usuario_actual = request.user.id  # Obtener el usuario autenticado
+    try:
+        usuario = Usuarios.objects.get(id_usr=usuario_actual)  # Obtener el objeto Usuarios correspondiente
+        mostrar_boton = usuario.rol_usr == 1  # Verificar el rol del usuario
+    except Usuarios.DoesNotExist:
         mostrar_boton = False
-    usuarios = Usuarios.objects.all()
-    return render(request, "usuarios/ver.html", {'usuarios': usuarios, 'mostrar_boton': mostrar_boton})
 
+    usuarios = Usuarios.objects.all()
+
+    return render(request, "usuarios/ver.html", {'usuarios': usuarios, 'mostrar_boton': mostrar_boton})
 
 @login_required
 def modificar(request, id_usr):
@@ -145,3 +148,48 @@ def guardar_comentario(request):
         comentario.save()
     return redirect(request.META['HTTP_REFERER'])
 
+def calculadora(request):
+    if request.method == 'POST':
+        cantidad_objetos = int(request.POST.get('cantidad_objetos'))
+
+        objetos = []
+        consumo_total_diario = 0.0
+        consumo_total_mensual = 0.0
+        consumo_total_anual = 0.0
+
+        for i in range(cantidad_objetos):
+            nombre = request.POST.get(f'nombre_objeto_{i+1}')
+            carga = request.POST.get(f'carga_objeto_{i+1}')
+            potencia_wh = request.POST.get(f'potencia_wh_objeto_{i+1}')
+            promedio_horas = request.POST.get(f'promedio_horas_objeto_{i+1}')
+
+            if nombre and carga and potencia_wh and promedio_horas:  # Verificar si los valores son None
+                carga = float(carga)
+                potencia_wh = float(potencia_wh)
+                promedio_horas = float(promedio_horas)
+
+                consumo_diario = (potencia_wh * promedio_horas) / 1000
+                consumo_mensual = consumo_diario * 30
+                consumo_anual = consumo_diario * 365
+
+                objetos.append({
+                    'nombre': nombre,
+                    'consumo_diario': consumo_diario,
+                    'consumo_mensual': consumo_mensual,
+                    'consumo_anual': consumo_anual
+                })
+
+                consumo_total_diario += consumo_diario
+                consumo_total_mensual += consumo_mensual
+                consumo_total_anual += consumo_anual
+
+        context = {
+            'objetos': objetos,
+            'consumo_total_diario': consumo_total_diario,
+            'consumo_total_mensual': consumo_total_mensual,
+            'consumo_total_anual': consumo_total_anual
+        }
+
+        return render(request, 'calculadora.html', context)
+
+    return render(request, 'calculadora.html')

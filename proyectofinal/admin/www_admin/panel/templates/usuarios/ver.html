@@ -45,17 +45,20 @@
                         <td><a>No editable</a></td>
                         {% comment %} <td><a>No se puede eliminar</a></td> {% endcomment %}
                       {% else %}
-                        <td><a href="modificar/{{ u.id_usr }}"><i class="fa fa-user"></i></a></td>
+                        {% if mostrar_boton %}
+                          <td><a href="modificar/{{ u.id_usr }}"><i class="fa fa-user"></i></a></td>
+                        {% else %}
+                        <td><a>No tienes permiso</a></td>
+                        {% endif %}
+                        
                         {% comment %} <td><a href="eliminar/{{ u.id_usr }}"><i class="fa fa-trash"></i></a></td> {% endcomment %}
-                      {% endif %}
-                      
+                      {% endif %}                      
                   </tr>
               {% endfor %}
-
               </tbody>
           
               <caption>
-                Usuarios
+                Usuarios registrados
               </caption>
           
             </table>

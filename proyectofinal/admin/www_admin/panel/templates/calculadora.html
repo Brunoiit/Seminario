@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Consumo</title>
+</head>
+<body>
+    <h1>Calculadora de Consumo</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <fieldset>
+            <legend>Cantidad de Objetos:</legend>
+            <input type="number" name="cantidad_objetos" id="cantidad_objetos" required>
+            <span class="error">{{ errors.cantidad_objetos }}</span>
+        </fieldset>
+
+        {% for i in objetos_range %}
+            <fieldset>
+                <legend>Objeto {{ i }}</legend>
+                <label for="nombre_objeto_{{ i }}">Nombre:</label>
+                <input type="text" name="nombre_objeto_{{ i }}" id="nombre_objeto_{{ i }}" required>
+                <span class="error">{{ errors['nombre_objeto_' + i|stringformat:"d"] }}</span>
+
+                <label for="carga_objeto_{{ i }}">Carga:</label>
+                <input type="text" name="carga_objeto_{{ i }}" id="carga_objeto_{{ i }}" required>
+                <span class="error">{{ errors['carga_objeto_' + i|stringformat:"d"] }}</span>
+
+                <label for="potencia_wh_objeto_{{ i }}">Potencia (Wh):</label>
+                <input type="text" name="potencia_wh_objeto_{{ i }}" id="potencia_wh_objeto_{{ i }}" required>
+                <span class="error">{{ errors['potencia_wh_objeto_' + i|stringformat:"d"] }}</span>
+
+                <label for="promedio_horas_objeto_{{ i }}">Promedio de Horas de Funcionamiento Diario:</label>
+                <input type="text" name="promedio_horas_objeto_{{ i }}" id="promedio_horas_objeto_{{ i }}" required>
+                <span class="error">{{ errors['promedio_horas_objeto_' + i|stringformat:"d"] }}</span>
+            </fieldset>
+        {% endfor %}
+
+        <input type="submit" value="Calcular">
+    </form>
+
+    {% if objetos %}
+        <h2>Resultados:</h2>
+
+        {% for objeto in objetos %}
+            <h3>{{ objeto.nombre }}</h3>
+            <p>Consumo Diario: {{ objeto.consumo_diario }}</p>
+            <p>Consumo Mensual: {{ objeto.consumo_mensual }}</p>
+            <p>Consumo Anual: {{ objeto.consumo_anual }}</p>
+            <hr>
+        {% endfor %}
+
+        <h3>Consumo Total:</h3>
+        <p>Consumo Diario Total: {{ consumo_total_diario }}</p>
+        <p>Consumo Mensual Total: {{ consumo_total_mensual }}</p>
+        <p>Consumo Anual Total: {{ consumo_total_anual }}</p>
+    {% endif %}
+</body>
+</html>

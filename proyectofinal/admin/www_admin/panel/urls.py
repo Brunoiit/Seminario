@@ -13,6 +13,6 @@ urlpatterns = [
     path('modificar/<int:id_usr>/', views.modificar, name='modificar'),
     path('publicacion/<int:id_pblc>/', views.detalle_publicacion, name='detalle_publicacion'),
     path('guardar_comentario/', views.guardar_comentario, name='guardar_comentario'),
+    path('calculadora/', views.calculadora, name='calculadora'),
     # path('eliminar/<int:id_usr>/', views.eliminar, name='eliminar')
 ]
-
