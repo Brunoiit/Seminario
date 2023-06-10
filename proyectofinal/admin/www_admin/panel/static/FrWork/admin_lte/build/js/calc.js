@@ -28,18 +28,17 @@ function agregarObjeto() {
     promedioInput.required = true;
     
     const removeButton = document.createElement('button');
-        removeButton.type = 'button';
-        removeButton.style.backgroundColor = 'red';
-        removeButton.style.color = 'white';
-        removeButton.style.borderRadius = '20px';
-        removeButton.style.padding = '8px 16px';
-        removeButton.style.border = 'none';
-        removeButton.style.cursor = 'pointer';
-        removeButton.innerHTML = '<i class="fa fa-times"></i>';
-        removeButton.addEventListener('click', function() {
-            grupo.remove();
+    removeButton.type = 'button';
+    removeButton.style.backgroundColor = 'red';
+    removeButton.style.color = 'white';
+    removeButton.style.borderRadius = '20px';
+    removeButton.style.padding = '8px 16px';
+    removeButton.style.border = 'none';
+    removeButton.style.cursor = 'pointer';
+    removeButton.innerHTML = '<i class="fa fa-times"></i>';
+    removeButton.addEventListener('click', function() {
+        grupo.remove();
     });
-
     
     // Agregar espacio entre el texto de las etiquetas y los campos de entrada
     objetoLabel.classList.add('label-space');
@@ -60,7 +59,14 @@ function agregarObjeto() {
 function calcularConsumo() {
     const objetos = document.getElementsByClassName('objeto-group');
     const datosTableBody = document.getElementById('datos-table-body');
+    const resumenTable = document.getElementById('resumen-table');
     datosTableBody.innerHTML = '';
+    
+    const precioKwh = 283.49; // Precio del kWh en pesos colombianos
+    
+    let totalDiarioCOP = 0;
+    let totalMensualCOP = 0;
+    let totalAnualCOP = 0;
     
     for (let i = 0; i < objetos.length; i++) {
         const objeto = objetos[i];
@@ -74,6 +80,14 @@ function calcularConsumo() {
             const consumoDiario = (consumo * promedioHoras) / 1000;
             const consumoMensual = consumoDiario * 30;
             const consumoAnual = consumoMensual * 12;
+            
+            const consumoDiarioCOP = consumoDiario * precioKwh;
+            const consumoMensualCOP = consumoMensual * precioKwh;
+            const consumoAnualCOP = consumoAnual * precioKwh;
+            
+            totalDiarioCOP += consumoDiarioCOP;
+            totalMensualCOP += consumoMensualCOP;
+            totalAnualCOP += consumoAnualCOP;
             
             const row = document.createElement('tr');
             
@@ -104,6 +118,16 @@ function calcularConsumo() {
             datosTableBody.appendChild(row);
         }
     }
+    
+    // Actualizar tabla de resumen
+    const totalDiarioCell = document.getElementById('total-diario');
+    totalDiarioCell.textContent = totalDiarioCOP.toFixed(2);
+    
+    const totalMensualCell = document.getElementById('total-mensual');
+    totalMensualCell.textContent = totalMensualCOP.toFixed(2);
+    
+    const totalAnualCell = document.getElementById('total-anual');
+    totalAnualCell.textContent = totalAnualCOP.toFixed(2);
 }
 
 document.getElementById('add-btn').addEventListener('click', agregarObjeto);

@@ -37,7 +37,30 @@
                 <th>Consumo Anual (kWh)</th>
             </tr>
         </thead>
-        <tbody id="datos-table-body"></tbody>
+        <tbody id="datos-table-body">
+            <!-- Aquí se agregarán las filas de datos dinámicamente -->
+        </tbody>
+    </table>
+    
+    <h2>Resumen</h2>
+    
+    <table id="resumen-table">
+        <thead>
+            <tr>
+                <th>Total Diario (COP)</th>
+                <th>Total Mensual (COP)</th>
+                <th>Total Anual (COP)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <tr>
+                    <td id="total-diario">$0.00 COP</td>
+                    <td id="total-mensual">$0.00 COP</td>
+                    <td id="total-anual">$0.00 COP</td>
+                </tr>
+            </tr>
+        </tbody>
     </table>
 </div>
 {% endblock %}
