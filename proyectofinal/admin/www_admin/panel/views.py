@@ -147,16 +147,5 @@ def guardar_comentario(request):
     return redirect(request.META['HTTP_REFERER'])
 
 def agregar_datos(request):
-    # calculo = Calculo.objects.get(id_calculo=calculo_id)
-
-    # if request.method == 'POST':
-    #     objeto = request.POST['objeto']
-    #     consumo_wh = request.POST['consumo_wh']
-    #     promedio_horas_diarias = request.POST['promedio_horas_diarias']
-
-    #     Dato.objects.create(calculo=calculo, objeto=objeto, consumo_wh=consumo_wh, promedio_horas_diarias=promedio_horas_diarias)
-        
-    #     return redirect('procesar_calculo')
-
     return render(request, 'agregar_datos.html')
 

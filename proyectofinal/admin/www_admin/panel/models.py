@@ -16,6 +16,7 @@ class Usuarios(models.Model):
 
 
 class Public(models.Model):
+    id_pblc = models.IntegerField(primary_key=True)
     id_usr = models.ForeignKey(Usuarios, on_delete=models.CASCADE, null=False)
     titulo_pblc = models.CharField(max_length=25, null=False)
     cuerpo_pblc = models.CharField(max_length=500, null=False)
@@ -24,7 +25,7 @@ class Public(models.Model):
     class Meta:
         db_table = 'Publicaciones'
 class PQRS(models.Model):
-    id_pqrs = models.IntegerField(primary_key=True,)
+    id_pqrs = models.IntegerField(primary_key=True)
     texto_pqrs = models.CharField(max_length=250, null=False)
     correo_pqrs = models.CharField(max_length=50, null=False)
     telefono_pqrs = models.IntegerField(null=True)
