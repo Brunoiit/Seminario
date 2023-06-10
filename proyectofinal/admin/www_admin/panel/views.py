@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.urls import path
 from django.shortcuts import render, redirect
-from .models import Usuarios, Public, PQRS, Comentario
+from .models import Usuarios, Public, PQRS, Comentario, Calculo, Dato
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User
@@ -148,48 +148,17 @@ def guardar_comentario(request):
         comentario.save()
     return redirect(request.META['HTTP_REFERER'])
 
-def calculadora(request):
+def agregar_datos(request, calculo_id):
+    calculo = Calculo.objects.get(id_calculo=calculo_id)
+
     if request.method == 'POST':
-        cantidad_objetos = int(request.POST.get('cantidad_objetos'))
+        objeto = request.POST['objeto']
+        consumo_wh = request.POST['consumo_wh']
+        promedio_horas_diarias = request.POST['promedio_horas_diarias']
 
-        objetos = []
-        consumo_total_diario = 0.0
-        consumo_total_mensual = 0.0
-        consumo_total_anual = 0.0
+        Dato.objects.create(calculo=calculo, objeto=objeto, consumo_wh=consumo_wh, promedio_horas_diarias=promedio_horas_diarias)
+        
+        return redirect('procesar_calculo', calculo_id=calculo_id)
 
-        for i in range(cantidad_objetos):
-            nombre = request.POST.get(f'nombre_objeto_{i+1}')
-            carga = request.POST.get(f'carga_objeto_{i+1}')
-            potencia_wh = request.POST.get(f'potencia_wh_objeto_{i+1}')
-            promedio_horas = request.POST.get(f'promedio_horas_objeto_{i+1}')
+    return render(request, 'agregar_datos.html', {'calculo': calculo})
 
-            if nombre and carga and potencia_wh and promedio_horas:  # Verificar si los valores son None
-                carga = float(carga)
-                potencia_wh = float(potencia_wh)
-                promedio_horas = float(promedio_horas)
-
-                consumo_diario = (potencia_wh * promedio_horas) / 1000
-                consumo_mensual = consumo_diario * 30
-                consumo_anual = consumo_diario * 365
-
-                objetos.append({
-                    'nombre': nombre,
-                    'consumo_diario': consumo_diario,
-                    'consumo_mensual': consumo_mensual,
-                    'consumo_anual': consumo_anual
-                })
-
-                consumo_total_diario += consumo_diario
-                consumo_total_mensual += consumo_mensual
-                consumo_total_anual += consumo_anual
-
-        context = {
-            'objetos': objetos,
-            'consumo_total_diario': consumo_total_diario,
-            'consumo_total_mensual': consumo_total_mensual,
-            'consumo_total_anual': consumo_total_anual
-        }
-
-        return render(request, 'calculadora.html', context)
-
-    return render(request, 'calculadora.html')
