@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Usuarios(models.Model):
-    id_usr = models.IntegerField(primary_key=True,)
+    id_usr = models.AutoField(primary_key=True)
     nombre_usr = models.CharField(max_length=30, null=False)
     apellido_usr = models.CharField(max_length=30, null=False)
     correo_usr = models.CharField(max_length=50, null=False)
@@ -14,14 +14,16 @@ class Usuarios(models.Model):
     class Meta:
         db_table = 'Usuarios'
 
+
 class Public(models.Model):
-    id_pblc = models.IntegerField(primary_key=True,)
+    id_pblc = models.IntegerField(primary_key=True)
     id_usr = models.ForeignKey(Usuarios, on_delete=models.CASCADE, null=False)
     titulo_pblc = models.CharField(max_length=25, null=False)
     cuerpo_pblc = models.CharField(max_length=500, null=False)
     fec_creacion_pblc = models.DateTimeField(auto_now_add=True, null=True)
     class Meta:
         db_table = 'Publicaciones'
+
 
 class PQRS(models.Model):
     id_pqrs = models.IntegerField(primary_key=True,)
@@ -35,8 +37,22 @@ class Comentario(models.Model):
     usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
     publicacion = models.ForeignKey(Public, on_delete=models.CASCADE)
     comentario = models.TextField()
-    fecha_creacion = models.DateTimeField(auto_now_add=True)  # Agregar este campo
-
+    fecha_creacion = models.DateTimeField(auto_now_add=True)  
     def __str__(self):
         return self.comentario
+    
+class Calculo(models.Model):
+    id_calculo = models.AutoField(primary_key=True)
+
+    def __str__(self):
+        return f"Cálculo {self.id_calculo}"
+
+class Dato(models.Model):
+    calculo = models.ForeignKey(Calculo, on_delete=models.CASCADE)
+    objeto = models.CharField(max_length=100)
+    consumo_wh = models.FloatField()
+    promedio_horas_diarias = models.FloatField()
+
+    def __str__(self):
+        return self.objeto
 
