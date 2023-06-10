@@ -16,15 +16,13 @@ class Usuarios(models.Model):
 
 
 class Public(models.Model):
-    id_pblc = models.IntegerField(primary_key=True)
     id_usr = models.ForeignKey(Usuarios, on_delete=models.CASCADE, null=False)
     titulo_pblc = models.CharField(max_length=25, null=False)
     cuerpo_pblc = models.CharField(max_length=500, null=False)
     fec_creacion_pblc = models.DateTimeField(auto_now_add=True, null=True)
+    
     class Meta:
         db_table = 'Publicaciones'
-
-
 class PQRS(models.Model):
     id_pqrs = models.IntegerField(primary_key=True,)
     texto_pqrs = models.CharField(max_length=250, null=False)
@@ -40,19 +38,3 @@ class Comentario(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)  
     def __str__(self):
         return self.comentario
-    
-class Calculo(models.Model):
-    id_calculo = models.AutoField(primary_key=True)
-
-    def __str__(self):
-        return f"Cálculo {self.id_calculo}"
-
-class Dato(models.Model):
-    calculo = models.ForeignKey(Calculo, on_delete=models.CASCADE)
-    objeto = models.CharField(max_length=100)
-    consumo_wh = models.FloatField()
-    promedio_horas_diarias = models.FloatField()
-
-    def __str__(self):
-        return self.objeto
-
