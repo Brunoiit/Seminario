@@ -28,12 +28,23 @@ function agregarObjeto() {
     promedioInput.required = true;
     
     const removeButton = document.createElement('button');
-    removeButton.type = 'button';
-    removeButton.classList.add('btn-remove');
-    removeButton.textContent = 'X';
-    removeButton.onclick = function() {
-        eliminarObjeto(grupo);
-    };
+        removeButton.type = 'button';
+        removeButton.style.backgroundColor = 'red';
+        removeButton.style.color = 'white';
+        removeButton.style.borderRadius = '20px';
+        removeButton.style.padding = '8px 16px';
+        removeButton.style.border = 'none';
+        removeButton.style.cursor = 'pointer';
+        removeButton.innerHTML = '<i class="fa fa-times"></i>';
+        removeButton.addEventListener('click', function() {
+            grupo.remove();
+    });
+
+    
+    // Agregar espacio entre el texto de las etiquetas y los campos de entrada
+    objetoLabel.classList.add('label-space');
+    consumoLabel.classList.add('label-space');
+    promedioLabel.classList.add('label-space');
     
     grupo.appendChild(objetoLabel);
     grupo.appendChild(objetoInput);
@@ -46,49 +57,48 @@ function agregarObjeto() {
     container.appendChild(grupo);
 }
 
-function eliminarObjeto(grupo) {
-    grupo.parentNode.removeChild(grupo);
-}
-
 function calcularConsumo() {
     const objetos = document.getElementsByClassName('objeto-group');
-    const datosTableBody = document.getElementById('datos-table').getElementsByTagName('tbody')[0];
+    const datosTableBody = document.getElementById('datos-table-body');
     datosTableBody.innerHTML = '';
     
     for (let i = 0; i < objetos.length; i++) {
         const objeto = objetos[i];
-        const objetoInput = objeto.querySelector('input[name="objeto"]');
-        const consumoInput = objeto.querySelector('input[name="consumo_wh"]');
-        const promedioInput = objeto.querySelector('input[name="promedio_horas_diarias"]');
+        const objetoInputs = objeto.getElementsByTagName('input');
         
-        const objetoValue = objetoInput.value;
-        const consumoValue = parseFloat(consumoInput.value);
-        const promedioValue = parseFloat(promedioInput.value);
+        const nombre = objetoInputs[0].value;
+        const consumo = parseFloat(objetoInputs[1].value);
+        const promedioHoras = parseFloat(objetoInputs[2].value);
         
-        if (objetoValue && !isNaN(consumoValue) && !isNaN(promedioValue)) {
-            const consumoDiario = consumoValue * promedioValue / 1000;
+        if (nombre && !isNaN(consumo) && !isNaN(promedioHoras)) {
+            const consumoDiario = (consumo * promedioHoras) / 1000;
             const consumoMensual = consumoDiario * 30;
             const consumoAnual = consumoMensual * 12;
             
             const row = document.createElement('tr');
-            const objetoCell = document.createElement('td');
-            objetoCell.textContent = objetoValue;
+            
+            const nombreCell = document.createElement('td');
+            nombreCell.textContent = nombre;
+            row.appendChild(nombreCell);
+            
             const consumoCell = document.createElement('td');
-            consumoCell.textContent = consumoValue.toFixed(2);
-            const promedioCell = document.createElement('td');
-            promedioCell.textContent = promedioValue.toFixed(2);
+            consumoCell.textContent = consumo.toFixed(2);
+            row.appendChild(consumoCell);
+            
+            const promedioHorasCell = document.createElement('td');
+            promedioHorasCell.textContent = promedioHoras.toFixed(2);
+            row.appendChild(promedioHorasCell);
+            
             const consumoDiarioCell = document.createElement('td');
             consumoDiarioCell.textContent = consumoDiario.toFixed(2);
+            row.appendChild(consumoDiarioCell);
+            
             const consumoMensualCell = document.createElement('td');
             consumoMensualCell.textContent = consumoMensual.toFixed(2);
+            row.appendChild(consumoMensualCell);
+            
             const consumoAnualCell = document.createElement('td');
             consumoAnualCell.textContent = consumoAnual.toFixed(2);
-            
-            row.appendChild(objetoCell);
-            row.appendChild(consumoCell);
-            row.appendChild(promedioCell);
-            row.appendChild(consumoDiarioCell);
-            row.appendChild(consumoMensualCell);
             row.appendChild(consumoAnualCell);
             
             datosTableBody.appendChild(row);
@@ -96,7 +106,7 @@ function calcularConsumo() {
     }
 }
 
+document.getElementById('add-btn').addEventListener('click', agregarObjeto);
 document.getElementById('datos-form').addEventListener('submit', function(event) {
     event.preventDefault();
-    calcularConsumo();
 });

@@ -19,13 +19,11 @@
                 
                 <label for="promedio_horas_diarias">Promedio Horas Diarias:</label>
                 <input type="number" name="promedio_horas_diarias" class="input-round" required>
-                
-                <button type="button" class="btn-remove" onclick="eliminarObjeto(this)">X</button>
             </div>
         </div>
         
         <button type="button" class="btn-blue btn-round" id="add-btn" onclick="agregarObjeto()"><i class="fa fa-plus"></i></button>
-        <button type="submit" class="btn-blue btn-round">Agregar</button>
+        <button type="button" class="btn-blue btn-round" onclick="calcularConsumo()">Agregar</button>
     </form>
 
     <table id="datos-table">
@@ -39,7 +37,7 @@
                 <th>Consumo Anual (kWh)</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="datos-table-body"></tbody>
     </table>
 </div>
 {% endblock %}
