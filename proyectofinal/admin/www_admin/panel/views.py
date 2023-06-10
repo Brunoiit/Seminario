@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.urls import path
 from django.shortcuts import render, redirect
-from .models import Usuarios, Public, PQRS, Comentario, Calculo, Dato
+from .models import Usuarios, Public, PQRS, Comentario
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User
@@ -135,8 +135,6 @@ def detalle_publicacion(request, id_pblc):
     }
     return render(request, "publicaciones/detalle_publicacion.html", context)
 
-
-
 @login_required
 def guardar_comentario(request):
     if request.method == 'POST':
@@ -148,17 +146,17 @@ def guardar_comentario(request):
         comentario.save()
     return redirect(request.META['HTTP_REFERER'])
 
-def agregar_datos(request, calculo_id):
-    calculo = Calculo.objects.get(id_calculo=calculo_id)
+def agregar_datos(request):
+    # calculo = Calculo.objects.get(id_calculo=calculo_id)
 
-    if request.method == 'POST':
-        objeto = request.POST['objeto']
-        consumo_wh = request.POST['consumo_wh']
-        promedio_horas_diarias = request.POST['promedio_horas_diarias']
+    # if request.method == 'POST':
+    #     objeto = request.POST['objeto']
+    #     consumo_wh = request.POST['consumo_wh']
+    #     promedio_horas_diarias = request.POST['promedio_horas_diarias']
 
-        Dato.objects.create(calculo=calculo, objeto=objeto, consumo_wh=consumo_wh, promedio_horas_diarias=promedio_horas_diarias)
+    #     Dato.objects.create(calculo=calculo, objeto=objeto, consumo_wh=consumo_wh, promedio_horas_diarias=promedio_horas_diarias)
         
-        return redirect('procesar_calculo', calculo_id=calculo_id)
+    #     return redirect('procesar_calculo')
 
-    return render(request, 'agregar_datos.html', {'calculo': calculo})
+    return render(request, 'agregar_datos.html')
 
