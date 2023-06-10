@@ -7,10 +7,64 @@
     cursor: pointer;
 }
 
+.input-round {
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.btn-round {
+    border-radius: 20px;
+    padding: 8px 16px;
+    border: none;
+    color: #fff;
+    background-color: #007bff;
+    cursor: pointer;
+}
+
+.btn-round:hover {
+    background-color: #0069d9;
+}
+
+.btn-round i {
+    margin-right: 5px;
+}
+
 .btn-blue:hover {
     background-color: darkblue;
 }
 
 .btn-blue i {
     margin-right: 5px;
+}
+
+.label-space {
+    margin-right: 10px;
+}
+
+.input-round {
+    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.fa-plus {
+    margin-right: 5px;
+}
+
+.btn-remove {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-remove:hover {
+    background-color: darkred;
 }

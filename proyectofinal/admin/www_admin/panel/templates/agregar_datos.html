@@ -7,22 +7,39 @@
 <div class="right_col" role="main">
     <h1>Agregar Datos para el Cálculo {{ calculo }}</h1>
     <form id="datos-form" method="post">
-        {% csrf_token %}        
+        {% csrf_token %}
+        
         <div id="objeto-container">
             <div class="objeto-group">
                 <label for="objeto">Objeto:</label>
-                <input type="text" name="objeto" required>
+                <input type="text" name="objeto" class="input-round" required>
                 
                 <label for="consumo_wh">Consumo (Wh):</label>
-                <input type="number" name="consumo_wh" required>
+                <input type="number" name="consumo_wh" class="input-round" required>
                 
                 <label for="promedio_horas_diarias">Promedio Horas Diarias:</label>
-                <input type="number" name="promedio_horas_diarias" required>
+                <input type="number" name="promedio_horas_diarias" class="input-round" required>
+                
+                <button type="button" class="btn-remove" onclick="eliminarObjeto(this)">X</button>
             </div>
         </div>
-        <button type="button" class="btn-blue" id="add-btn" onclick="agregarObjeto()"><i class="fa fa-plus"></i></button>
-        <button type="submit" class="btn-blue">Agregar</button>
+        
+        <button type="button" class="btn-blue btn-round" id="add-btn" onclick="agregarObjeto()"><i class="fa fa-plus"></i></button>
+        <button type="submit" class="btn-blue btn-round">Agregar</button>
     </form>
-</div>
 
+    <table id="datos-table">
+        <thead>
+            <tr>
+                <th>Objeto</th>
+                <th>Consumo (Wh)</th>
+                <th>Promedio Horas Diarias</th>
+                <th>Consumo Diario (kWh)</th>
+                <th>Consumo Mensual (kWh)</th>
+                <th>Consumo Anual (kWh)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 {% endblock %}
