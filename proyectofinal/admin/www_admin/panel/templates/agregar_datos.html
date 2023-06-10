@@ -1,10 +1,13 @@
 {% extends 'index_master.html' %}
 {% block content %}
+{% load static %}
+<link href="{% static '/FrWork/admin_lte/build/css/calc.css' %}" rel="stylesheet">
+<script src="{% static '/FrWork/admin_lte/build/js/calc.js' %}"></script>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
 <div class="right_col" role="main">
     <h1>Agregar Datos para el Cálculo {{ calculo }}</h1>
     <form id="datos-form" method="post">
-        {% csrf_token %}
-        
+        {% csrf_token %}        
         <div id="objeto-container">
             <div class="objeto-group">
                 <label for="objeto">Objeto:</label>
@@ -17,46 +20,9 @@
                 <input type="number" name="promedio_horas_diarias" required>
             </div>
         </div>
-
-        <button type="button" onclick="agregarObjeto()">+</button>
-        <button type="submit">Agregar</button>
+        <button type="button" class="btn-blue" id="add-btn" onclick="agregarObjeto()"><i class="fa fa-plus"></i></button>
+        <button type="submit" class="btn-blue">Agregar</button>
     </form>
 </div>
-    <script>
-        function agregarObjeto() {
-            const container = document.getElementById('objeto-container');
-            const grupo = document.createElement('div');
-            grupo.classList.add('objeto-group');
-            
-            const objetoLabel = document.createElement('label');
-            objetoLabel.textContent = 'Objeto: ';
-            const objetoInput = document.createElement('input');
-            objetoInput.type = 'text';
-            objetoInput.name = 'objeto';
-            objetoInput.required = true;
-            
-            const consumoLabel = document.createElement('label');
-            consumoLabel.textContent = 'Consumo (Wh): ';
-            const consumoInput = document.createElement('input');
-            consumoInput.type = 'number';
-            consumoInput.name = 'consumo_wh';
-            consumoInput.required = true;
-            
-            const promedioLabel = document.createElement('label');
-            promedioLabel.textContent = 'Promedio Horas Diarias: ';
-            const promedioInput = document.createElement('input');
-            promedioInput.type = 'number';
-            promedioInput.name = 'promedio_horas_diarias';
-            promedioInput.required = true;
-            
-            grupo.appendChild(objetoLabel);
-            grupo.appendChild(objetoInput);
-            grupo.appendChild(consumoLabel);
-            grupo.appendChild(consumoInput);
-            grupo.appendChild(promedioLabel);
-            grupo.appendChild(promedioInput);
-            
-            container.appendChild(grupo);
-        }
-    </script>
+
 {% endblock %}
