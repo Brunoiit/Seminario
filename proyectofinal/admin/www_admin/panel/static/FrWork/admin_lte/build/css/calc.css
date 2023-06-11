@@ -68,3 +68,68 @@
 .btn-remove:hover {
     background-color: darkred;
 }
+
+/* Estilos para la tabla de datos */
+#datos-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  #datos-table th,
+  #datos-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #datos-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  /* Estilos para la tabla de resumen */
+  #resumen-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  #resumen-table th,
+  #resumen-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Estilos adicionales */
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+  }
+  
+  h2 {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+  
+  .label-space {
+    margin-right: 10px;
+  }
+  
+  .input-round {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+  }
+  
+  .button-round {
+    border-radius: 20px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .error-message {
+    color: red;
+  }  

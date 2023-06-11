@@ -77,6 +77,11 @@ function calcularConsumo() {
         const promedioHoras = parseFloat(objetoInputs[2].value);
         
         if (nombre && !isNaN(consumo) && !isNaN(promedioHoras)) {
+            if (promedioHoras > 24) {
+                // Mostrar un mensaje de error
+                alert('El valor de "Promedio Horas Diarias" no puede ser mayor a 24.');
+                return; // Detener el cálculo del consumo
+            }
             const consumoDiario = (consumo * promedioHoras) / 1000;
             const consumoMensual = consumoDiario * 30;
             const consumoAnual = consumoMensual * 12;
@@ -96,23 +101,23 @@ function calcularConsumo() {
             row.appendChild(nombreCell);
             
             const consumoCell = document.createElement('td');
-            consumoCell.textContent = consumo.toFixed(2);
+            consumoCell.textContent = consumo.toFixed(2) + " Wh";
             row.appendChild(consumoCell);
             
             const promedioHorasCell = document.createElement('td');
-            promedioHorasCell.textContent = promedioHoras.toFixed(2);
+            promedioHorasCell.textContent = promedioHoras.toFixed(2) + " Horas";
             row.appendChild(promedioHorasCell);
             
             const consumoDiarioCell = document.createElement('td');
-            consumoDiarioCell.textContent = consumoDiario.toFixed(2);
+            consumoDiarioCell.textContent = consumoDiario.toFixed(2) + " kWh";
             row.appendChild(consumoDiarioCell);
             
             const consumoMensualCell = document.createElement('td');
-            consumoMensualCell.textContent = consumoMensual.toFixed(2);
+            consumoMensualCell.textContent = consumoMensual.toFixed(2) + " kWh";
             row.appendChild(consumoMensualCell);
             
             const consumoAnualCell = document.createElement('td');
-            consumoAnualCell.textContent = consumoAnual.toFixed(2);
+            consumoAnualCell.textContent = consumoAnual.toFixed(2) + " kWh";
             row.appendChild(consumoAnualCell);
             
             datosTableBody.appendChild(row);
@@ -121,13 +126,13 @@ function calcularConsumo() {
     
     // Actualizar tabla de resumen
     const totalDiarioCell = document.getElementById('total-diario');
-    totalDiarioCell.textContent = totalDiarioCOP.toFixed(2);
+    totalDiarioCell.textContent = "$ " + totalDiarioCOP.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " COP";
     
     const totalMensualCell = document.getElementById('total-mensual');
-    totalMensualCell.textContent = totalMensualCOP.toFixed(2);
+    totalMensualCell.textContent = "$ " + totalMensualCOP.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " COP";
     
     const totalAnualCell = document.getElementById('total-anual');
-    totalAnualCell.textContent = totalAnualCOP.toFixed(2);
+    totalAnualCell.textContent = "$ " + totalAnualCOP.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " COP";
 }
 
 document.getElementById('add-btn').addEventListener('click', agregarObjeto);
