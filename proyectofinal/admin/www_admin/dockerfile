@@ -1,9 +1,20 @@
-FROM 3.11.4-alpine3.18
+# Utilizar una imagen base de Node.js
+FROM node:14-alpine
 
+# Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-COPY ./requeriments.txt ./
+# Copiar los archivos de la aplicación al contenedor
+COPY package.json package-lock.json /app/
 
-RUN apk update \
-    && apk add --no-cache gcc musl-dev postgresql-dev python3-dev libffi-dev \
-    && pip install --upgrade pip
+# Instalar las dependencias
+RUN npm install --production
+
+# Copiar el resto de los archivos de la aplicación
+COPY . /app
+
+# Exponer el puerto en el que se ejecuta la aplicación
+EXPOSE 3000
+
+# Comando para iniciar la aplicación
+CMD ["npm", "start"]
